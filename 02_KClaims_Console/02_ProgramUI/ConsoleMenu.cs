@@ -15,8 +15,10 @@ namespace _02_KClaims_Console._02_ProgramUI
             string userInput = "";
             int claimID;
             int claimTypeInt;
-            //Enter claim id int
-
+            decimal claimAmount;
+            DateTime incidentDate = new DateTime();
+            DateTime claimDate = new DateTime();
+         //Enter claim id int
             do
             {
                 Console.Clear();
@@ -24,11 +26,12 @@ namespace _02_KClaims_Console._02_ProgramUI
                 userInput = Console.ReadLine();
             }
             while (!int.TryParse(userInput, out claimID));
-            //Enter type of claim enum
+            
+         //Enter type of claim enum
             ClaimType[] claimTypeCount = (ClaimType[])Enum.GetValues(typeof(ClaimType));
+            int i = 1;
             foreach (var item in claimTypeCount)
             {
-                int i = 1;
                 Console.WriteLine($"{i} {item}");
                 i++;
             }
@@ -38,25 +41,71 @@ namespace _02_KClaims_Console._02_ProgramUI
                 userInput = Console.ReadLine();
             }
             while (!int.TryParse(userInput, out claimTypeInt) || claimTypeInt > claimTypeCount.Length);
-
+            claimTypeInt -= 1;
+            ClaimType typeOfClaim = (ClaimType)claimTypeInt;
             
-            
-        
         //Enter claim description string
             Console.WriteLine("Enter Claim Description");
             string description = Console.ReadLine();
 
-            //enter claim amount decimal
+        //enter claim amount decimal
+            do
+            {
+                Console.WriteLine("Enter Claim Amount");
+                userInput = Console.ReadLine();
+            }
+            while (!Decimal.TryParse(userInput, out claimAmount));
 
-            //enter incident date date time
+         //enter incident date date time
+            Console.WriteLine("\n ClaimType");
+            do
+            {
+                Console.WriteLine("Enter the Incident Date in the following format: MM/DD/YYYY");
+                userInput = Console.ReadLine();
+                userInput.Trim('/');
+            }
+            while (!DateTime.TryParseExact(userInput,"MM/dd/yyyy",null, System.Globalization.DateTimeStyles.AllowWhiteSpaces |
+                               System.Globalization.DateTimeStyles.AdjustToUniversal, out incidentDate));
 
-            //enter claim date date time
-            _repo.AddClaim(id, typeOfClaim, description, claimAmount, incidentDate, claimDate);
-
+         //enter claim date date time
+            do
+            {
+                Console.WriteLine("Enter the Claim Date in the following format: MM/DD/YYYY");
+                userInput = Console.ReadLine();
+                userInput.Trim('/');
+            }
+            while (!DateTime.TryParseExact(userInput, "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.AllowWhiteSpaces |
+                              System.Globalization.DateTimeStyles.AdjustToUniversal, out claimDate));
+        //Add claim to queue
+            _repo.AddClaim(claimID, typeOfClaim, description, claimAmount, incidentDate, claimDate);
+            Console.WriteLine("\n Claim succesfully added\n" +
+                "Press any key to return to the Menu.");
+            Console.ReadKey();
         }
     }
-    
-    
+
+    class HandleNextClaim:IMenu
+    {
+        public string Description => "Handle Next Claim";
+        public void RunMethod(ClaimRepository _repo)
+        {
+            Console.Clear();
+            Claim nextClaim = _repo.PeekNextClaim();
+            Console.WriteLine($"Details on next claim in queue\n" +
+                $"{"ID",-10}{"Type",-10}{"Description",-30}{"Amount",-10}{"Incident Date",-20}{"Claim Date",-20}{"Claim Valid?"}\n" +
+                $"{nextClaim.ID,-10}{nextClaim.TypeOfClaim,-10}{nextClaim.Description,-30}{nextClaim.ClaimAmount,-10}{nextClaim.IncidentDate.ToShortDateString(),-20}{nextClaim.ClaimDate.ToShortDateString(),-20}{nextClaim.IsValid}\n" +
+                $"\n Enter 'y' to handle next claim. Enter 'n' to return to Main Menu");
+            string userInput = Console.ReadLine().ToLower();
+            if(userInput=="y")
+            {
+                nextClaim = _repo.GetNextClaim();
+                Console.WriteLine("Claim removed from queue and entered for processing.\n" +
+                    "Press any key to return to the Main Menu.");
+                Console.ReadKey();
+            }
+            
+        }
+    }
     class ViewAllClaims : IMenu
     {
         public string Description => "View All Claims";
@@ -64,10 +113,10 @@ namespace _02_KClaims_Console._02_ProgramUI
         {
             Console.Clear();
             Queue<Claim> allClaims = _repo.GetClaims();
-            Console.WriteLine("{0,-5} {1,-5}{2,-5}{3,-5}{4,-5}{5,-5}{6-5}", "Claim ID", "Type","Description","Amount","Accident Date", "Claim Date", "Claim Valid?");
+            Console.WriteLine( $"{"ID",-10}{"Type",-10}{"Description",-30}{"Amount",-10}{"Incident Date",-20}{"Claim Date",-20}{"Claim Valid?"}");
             foreach (var item in allClaims)
             {
-                Console.WriteLine($"{item.ID, -5} {item.TypeOfClaim, -5}{item.Description,-5}{item.ClaimAmount,-5}{item.IncidentDate,-5}{item.ClaimDate,-5}{item.IsValid,-5}");
+                Console.WriteLine($"{item.ID, -10}{item.TypeOfClaim, -10}{item.Description,-30}{item.ClaimAmount,-10}{item.IncidentDate.ToShortDateString(),-20}{item.ClaimDate.ToShortDateString(),-20}{item.IsValid}");
             }
             Console.WriteLine("Press any key to return to the Main Menu.");
             Console.ReadKey();

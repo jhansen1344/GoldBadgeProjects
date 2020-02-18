@@ -12,18 +12,17 @@ namespace _02_KClaims_Console._02_ProgramUI
         private readonly ClaimRepository _repo = new ClaimRepository();
         public void Run()
         {
+            SeedContent();
             RunMenu();
         }
-
         private void RunMenu()
         {
             bool continueToRun = true;
             List<IMenu> menuOptions = new List<IMenu>()
             {
-                //new AddABadge(),
-               // new UpdateBadge(),
-               // new RemoveAllDoorAccess(),
-               // new ViewAllBadges(),
+                new HandleNextClaim(),
+                new ViewAllClaims(),
+                new AddClaim(),
                 new Exit(),
             };
             while (continueToRun)
@@ -47,6 +46,10 @@ namespace _02_KClaims_Console._02_ProgramUI
                 menuOptions[optionIndex - 1].RunMethod(_repo);
             }
 
+        }
+        private void SeedContent()
+        {
+            _repo.AddClaim(1, ClaimType.Car, "Car accident on 465", 400.00m, new DateTime(2018, 04, 25), new DateTime(2018, 04, 27));
         }
 
     }
