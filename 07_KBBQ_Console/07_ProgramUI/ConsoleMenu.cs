@@ -126,7 +126,7 @@ namespace _07_KBBQ_Console._07_ProgramUI
             {
                 Console.WriteLine($"{eventToRemove} Removed.");
             }
-            else 
+            else
             {
                 Console.WriteLine($"There is no event listed with the name {eventToRemove}.");
             }
@@ -136,7 +136,7 @@ namespace _07_KBBQ_Console._07_ProgramUI
         }
     }
 
-    class ViewEventInfo:IMenu
+    class ViewEventInfo : IMenu
     {
         public string Description => "View Events, Total Tickets, and Total Cost";
         public void RunMethod(EventRepo _eventRepo)
@@ -149,6 +149,115 @@ namespace _07_KBBQ_Console._07_ProgramUI
                 Console.WriteLine($"{item.EventName,-30}{item.EventDate.ToShortDateString(),-30}{item.TotalTicketsTaken,-30}{item.TotalEventCost,-30}");
             }
             Console.WriteLine("Press any key to return to the Main Menu.");
+            Console.ReadKey();
+        }
+    }
+
+    class ViewFoodPrices : IMenu
+    {
+        public string Description => "View Food Prices";
+        public void RunMethod(EventRepo _eventRepo)
+        {
+            Console.Clear();
+            List<Food> allFoods = _eventRepo.GetFoods();
+            Console.WriteLine($"{"Food Name", -30}{"Food Price",-30}");
+            foreach (var item in allFoods)
+            {
+                Console.WriteLine($"{item.ItemName,-30}{item.ItemPrice,-30}");
+            }
+            Console.WriteLine("\n Press any key to return to the main menu.");
+            Console.ReadKey();
+        }
+    }
+
+    class AddFood : IMenu
+    {
+        public string Description => "Add Food";
+        public void RunMethod(EventRepo _eventRepo)
+        {
+            Console.Clear();
+            Console.WriteLine("Enter the name of the food");
+            string foodName = Console.ReadLine();
+            string userInput;
+            int numIngredients;
+            Dictionary<string, double> foodIngredients = new Dictionary<string, double>();
+            do
+            {
+                Console.WriteLine($"Enter the number of ingredients for {foodName}.");
+                userInput = Console.ReadLine();
+            }
+            while (!Int32.TryParse(userInput, out numIngredients));
+            string ingredientName;
+            double ingredientPrice;
+            for (int i = 0; i < numIngredients; i++)
+            {
+                Console.WriteLine($"Enter the name of ingredient #{i + 1}");
+                ingredientName = Console.ReadLine();
+                do
+                {
+                    Console.WriteLine($"Enter the price of {ingredientName}");
+                    userInput = Console.ReadLine();
+                }
+                while (!Double.TryParse(userInput, out ingredientPrice));
+                foodIngredients.Add(ingredientName, ingredientPrice);
+            }
+
+        }
+    }
+
+    class AddBoothType:IMenu
+    {
+        public string Description => "Add Booth Type";
+        public void RunMethod(EventRepo _eventRepo)
+        {
+            Console.Clear();
+            Console.WriteLine("Enter the type of booth you'd like to add.");
+            string userInput = Console.ReadLine();
+            _eventRepo.AddBooth(userInput);
+            Console.WriteLine("Booth Added\n" +
+                "Press any key to return to the main menu.");
+            Console.ReadKey();
+        }
+    }
+    class UpdateIngredientPrices : IMenu
+    {
+        public string Description => "Update Ingredient Prices";
+        public void RunMethod(EventRepo _eventRepo)
+        {
+            Console.Clear();
+            List<Food> allFoods = _eventRepo.GetFoods();
+            Console.WriteLine("Available Foods to Update");
+            foreach (var item in allFoods)
+            {
+                Console.WriteLine($"{allFoods.IndexOf(item) + 1} {item.ItemName}");
+            }
+            string userInput;
+            int foodChoice;
+            do
+            {
+                Console.WriteLine($"Enter the number corresponding to the food item to update");
+                userInput = Console.ReadLine();
+            }
+            while (!int.TryParse(userInput, out foodChoice) || foodChoice > allFoods.Count);
+
+            Food foodToUpdate = allFoods[foodChoice - 1];
+            Console.Clear();
+            double newPrice;
+            Dictionary<string, double> newProductPrice = new Dictionary<string, double>();
+            foreach (var item in foodToUpdate.IngredientAndPrice)
+            {
+                do
+                {
+                    Console.WriteLine($"Current price for {item.Key}: {item.Value}");
+                    Console.WriteLine($"Enter the new price for {item.Key}");
+                    userInput = Console.ReadLine();
+                }
+                while (!Double.TryParse(userInput, out newPrice));
+                newProductPrice.Add(item.Key, newPrice);
+            }
+            _eventRepo.UpdateIngredientPrices(foodToUpdate.ItemName, newProductPrice);
+            Console.WriteLine($"Pricing Updated.");
+            Console.WriteLine("Press any key to return to the main menu.");
             Console.ReadKey();
         }
     }

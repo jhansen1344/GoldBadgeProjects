@@ -199,7 +199,30 @@ namespace _07_KBBQ_Classes
             return false;
         }
 
-        //Update Food/ingredientList
+        public Food GetFoodByName(string foodName)
+        {
+            List<Food> allFoods = GetFoods();
+            foreach (var item in allFoods)
+            {
+                if(item.ItemName==foodName)
+                {
+                    return item;
+                }
+                
+            }
+            return null;
+        }
+        public bool UpdateIngredientPrices(string foodName, Dictionary<string, double> updatedPrices)
+        {
+            Food foodToUpdate = GetFoodByName(foodName);
+            if(foodToUpdate!=null)
+            {
+                foodToUpdate.IngredientAndPrice = updatedPrices;
+                return true;
+            }
+            return false;
+        }
+
         //Update TicketsTaken at Event
         //Update food at booths
         //update eventName

@@ -25,12 +25,13 @@ namespace _07_KBBQ_Console._07_ProgramUI
                 new AddEvent(),
                 new ViewEventInfo(),
                 new RemoveEvent(),
+                new AddFood(),
+                new AddBoothType(),
+                new ViewFoodPrices(),
+                new UpdateIngredientPrices(),
                 new Exit(),
                 
-                //new AddEvent(),
-               // new TicketsAndCostViewPastEvents(),
-               // new RemoveEvent(),
-               //new Exit(),
+                
             };
             while (continueToRun)
             {
@@ -65,14 +66,16 @@ namespace _07_KBBQ_Console._07_ProgramUI
             };
             _eventRepo.AddFood(itemName, ingredientAndPrices);
             itemName = "VeggieBurger";
-            ingredientAndPrices = new Dictionary<string, double>()
-            {
-                {"Bun", .45 },
-                {"Veggie Pattie",1.05 }
-            };
-            _eventRepo.AddFood(itemName, ingredientAndPrices);
+            ingredientAndPrices.Add("Veggie Pattie", 1.05);
+            _eventRepo.AddFood(itemName, new Dictionary<string, double>() { { "Bun", .45 }, { "Veggie Pattie", 1.05 } });
+            itemName = "Hot Dog";
+            _eventRepo.AddFood(itemName, new Dictionary<string, double>() { { "Bun", .35 },{ "Hot Dog", .50 } });
+            itemName = "Popcorn";
+            _eventRepo.AddFood(itemName, new Dictionary<string, double>() { { "PopCorn", .25 }, { "Butter", .01 } });
+            itemName = "Ice Cream";
+            _eventRepo.AddFood(itemName, new Dictionary<string, double>() { { "Vanilla Ice Cream", .40 }, { "Chocolate Ice Cream", .45 } });
             _eventRepo.AddBooth("Burger Booth");
-            _eventRepo.AddBooth("Ice cream Booth");
+            _eventRepo.AddBooth("Treat Booth");
             List<Food> foodList = _eventRepo.GetFoods();
             int ticketsTaken = 400;
             _eventRepo.AddEventFood(foodList[0], ticketsTaken);
