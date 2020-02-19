@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _07_KBBQ_Console._07_ProgramUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace _07_KBBQ_Console
     {
         static void Main(string[] args)
         {
+            ProgramUI programUI = new ProgramUI();
+            programUI.Run();
         }
     }
 }

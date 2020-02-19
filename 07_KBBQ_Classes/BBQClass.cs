@@ -64,10 +64,11 @@ namespace _07_KBBQ_Classes
     {
         public EventBooth() { }
         public EventBooth(string boothName, List<EventFood> boothEventFood, double lumpSum)
+        : base(boothName)
         {
-            BoothName = boothName;
+        
             BoothEventFood = boothEventFood;
-            LumpSum = LumpSum;
+            LumpSum = lumpSum;
         }
         public List<EventFood> BoothEventFood { get; set; } = new List<EventFood>();
         public int TotalTickets {

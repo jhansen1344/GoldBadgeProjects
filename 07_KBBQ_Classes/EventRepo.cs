@@ -9,23 +9,31 @@ namespace _07_KBBQ_Classes
     public class EventRepo
     {
         private List<Food> _foodList = new List<Food>();
+        private List<Booth> _boothList = new List<Booth>();
         private List<EventFood> _eventFood = new List<EventFood>();
         private List<EventBooth> _eventBooth = new List<EventBooth>();
         private List<Event> _pastEvents = new List<Event>();
         //Add Food
-        public bool AddFood(string itemName, Dictionary<string, double> ingredientAndPrice)
+        public Food AddFood(string itemName, Dictionary<string, double> ingredientAndPrice)
         {
             Food newFood = new Food(itemName, ingredientAndPrice);
             _foodList.Add(newFood);
-            return true;
+            return newFood;
         }
 
         //Add Event Food (Food+Tickets)
-        public bool AddEventFood(Food eventFood, int ticketsTaken)
+        public EventFood AddEventFood(Food eventFood, int ticketsTaken)
         {
             EventFood newEventFood = new EventFood(eventFood, ticketsTaken);
             _eventFood.Add(newEventFood);
-            return true;
+            return newEventFood;
+        }
+        
+        public Booth AddBooth(string boothName)
+        {
+            Booth newBooth = new Booth(boothName);
+            _boothList.Add(newBooth);
+                return newBooth;
         }
         //Add Event Booth
         public bool AddEventBooth(string boothName, List<EventFood> boothFood, double lumpSum)
@@ -48,6 +56,11 @@ namespace _07_KBBQ_Classes
             return _foodList;
         }
 
+        //Return Booths
+        public List<Booth> GetBooths()
+        {
+            return _boothList;
+        }
         //Return EventFoods
         public List<EventFood> GetEventFoods()
         {

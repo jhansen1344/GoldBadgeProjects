@@ -43,11 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="07_ProgramUI\ConsoleMenu.cs" />
+    <Compile Include="07_ProgramUI\IMenu.cs" />
+    <Compile Include="07_ProgramUI\ProgramUI.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\07_KBBQ_Classes\07_KBBQ_Classes.csproj">
+      <Project>{57842F92-4FE4-4640-A837-2E030267B047}</Project>
+      <Name>07_KBBQ_Classes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
