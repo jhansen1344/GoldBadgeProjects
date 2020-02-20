@@ -54,7 +54,7 @@ namespace _02_KClaims_Test
         [TestMethod]
         public void TestGetNextClaim_ShouldReturnClaimAndDequeue()
         {
-            Claim nextClaim = _claimQ.GetNextClaim();
+            Claim nextClaim = _claimQ.DairyQueenNextClaim();
             Queue<Claim> testQ = _claimQ.GetClaims();
             Assert.AreEqual(400.00m, nextClaim.ClaimAmount);
             Assert.AreEqual(1, testQ.Count);

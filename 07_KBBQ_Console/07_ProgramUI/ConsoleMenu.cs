@@ -120,6 +120,13 @@ namespace _07_KBBQ_Console._07_ProgramUI
         public string Description => "Remove Event";
         public void RunMethod(EventRepo _eventRepo)
         {
+            Console.Clear();
+            Console.WriteLine("Past event names are:");
+            List<Event> pastEvents = _eventRepo.GetPastEvents();
+            foreach (var item in pastEvents)
+            {
+                Console.WriteLine(item.EventName);
+            }
             Console.WriteLine("Enter the name of the event to be removed");
             string eventToRemove = Console.ReadLine();
             if (_eventRepo.RemoveEventByName(eventToRemove))

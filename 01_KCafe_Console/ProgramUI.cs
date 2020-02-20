@@ -61,7 +61,7 @@ namespace _01_KCafeConsole
             {
                 foreach (var item in menuItems)
                 {
-                    Console.WriteLine($"\n Combo Number:{item.Number}\n" +
+                    Console.WriteLine($"\nCombo Number: #{item.Number}\n" +
                         $"Combo Name: {item.Name}\n" +
                         $"Combo Price: {item.Price}\n" +
                         $"Combo Description: {item.Description}\n" +
@@ -148,6 +148,21 @@ namespace _01_KCafeConsole
             Console.Clear();
             int number;
             bool canConvert = false;
+            List<Menu> menuItems = _menu.GetMenuItems();
+
+            if (menuItems.Count != 0)
+            {
+                foreach (var item in menuItems)
+                {
+                    Console.WriteLine($"\nCombo Number: #{item.Number}\n" +
+                        $"Combo Name: {item.Name}\n");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Combos Set Up.");
+            }
+
             do
             {
                 Console.WriteLine("Please enter the number of the combo to be removed");

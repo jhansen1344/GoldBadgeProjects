@@ -28,12 +28,12 @@ namespace _07_KBBQ_Classes
             _eventFood.Add(newEventFood);
             return newEventFood;
         }
-        
+
         public Booth AddBooth(string boothName)
         {
             Booth newBooth = new Booth(boothName);
             _boothList.Add(newBooth);
-                return newBooth;
+            return newBooth;
         }
         //Add Event Booth
         public bool AddEventBooth(string boothName, List<EventFood> boothFood, double lumpSum)
@@ -133,15 +133,19 @@ namespace _07_KBBQ_Classes
         public bool RemoveEventByName(string eventName)
         {
             Event removedEvent = GetEventByName(eventName);
-            _pastEvents.Remove(removedEvent);
-            return true;
+            if (removedEvent != null)
+            {
+                _pastEvents.Remove(removedEvent);
+                return true;
+            }
+            return false;
         }
         //Remove Food from list
         public bool RemoveFood(string foodName)
         {
             foreach (var item in _foodList)
             {
-                if(item.ItemName==foodName)
+                if (item.ItemName == foodName)
                 {
                     _foodList.Remove(item);
                     return true;

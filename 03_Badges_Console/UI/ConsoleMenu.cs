@@ -44,10 +44,15 @@ namespace _03_Badges_Console.UI
 
             if (_repo.AddBadge(badgeNumber, doorList))
             {
-                Console.WriteLine("Badge successfully added.\n" +
-                    "Press any key to return to the Main Menu.");
-                Console.ReadKey();
+                Console.WriteLine("Badge successfully added.\n");
             }
+            else
+            {
+                Console.WriteLine($"({badgeNumber} already exists. Please use the Update Badge function listed in the menu to update access.");
+            }
+
+            Console.WriteLine("Press any key to return to the Main Menu.");
+            Console.ReadKey();
         }
     }
 
@@ -62,7 +67,7 @@ namespace _03_Badges_Console.UI
             do
             {
                 Console.Clear();
-                Console.WriteLine("Enter the badge number to update");
+                Console.WriteLine("Enter the badge number to update:");
                 userInput = Console.ReadLine();
             }
             while (!int.TryParse(userInput, out badgeNumber)||badgeNumber<0);
@@ -78,14 +83,40 @@ namespace _03_Badges_Console.UI
             else
             {
                 string doorString = string.Join<string>(",", doorList);
-               
-                Console.WriteLine($"Badge Number: {badgeNumber} can access the following doors: {doorString}\n" +
+                bool continueToRun = true;
+                bool isYesNo = false;
+                string yesNoInput;
+                do
+                {
+                    Console.WriteLine($"Badge Number: {badgeNumber} can access the following doors: {doorString}\n" +
                     $"Enter a door to add/remove access.");
-                userInput = Console.ReadLine();
-                List<string> updatedList = _repo.UpdateDoorAccess(badgeNumber, userInput);
-                string updatedDoor = string.Join<string>(",", updatedList); ;
-                
-                Console.WriteLine($"Badge Number: {badgeNumber} can access the following doors: {updatedDoor}\n");
+                    userInput = Console.ReadLine();
+                    List<string> updatedList = _repo.UpdateDoorAccess(badgeNumber, userInput);
+                    string updatedDoor = string.Join<string>(",", updatedList); 
+                    Console.WriteLine($"Badge Number: {badgeNumber} can access the following doors: {updatedDoor}\n");
+                    doorString = updatedDoor;
+                    do
+                    {
+                        Console.WriteLine("Are there additional doors to update for this badge?\n" +
+                            "Enter 'y' to add additional doors or 'n' to return to the main menu.");
+                        yesNoInput = Console.ReadLine();
+                        switch(yesNoInput.ToLower())
+                            {
+                                case "y":
+                                isYesNo = true;
+                                break;
+                                case "n":
+                                isYesNo = true;
+                                continueToRun = false;
+                                break;
+                                default:
+                                break;
+                            }
+                    }
+                    while (!isYesNo);
+                }
+                while (continueToRun);
+
             }
             Console.WriteLine("Press any key to return to the Main Menu.");
             Console.ReadKey();

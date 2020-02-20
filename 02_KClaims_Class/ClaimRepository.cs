@@ -23,14 +23,18 @@ namespace _02_KClaims_Class
             return _claimQ;
         }
         //Return next
-        public Claim GetNextClaim()
+        public Claim DairyQueenNextClaim()
         {
             return _claimQ.Dequeue();
         }
         //Look at next
         public Claim PeekNextClaim()
         {
-            return _claimQ.Peek();
+            if(_claimQ.Count>0)
+            {
+                return _claimQ.Peek();
+            }
+            return null;
         }  
     }
 }
