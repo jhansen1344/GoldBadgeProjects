@@ -17,19 +17,16 @@ namespace _02_KClaims_Class
            _claimQ.Enqueue(newClaim);
             return true;
         }
-
         //Return all
         public Queue<Claim> GetClaims()
         {
             return _claimQ;
         }
-
         //Return next
         public Claim GetNextClaim()
         {
             return _claimQ.Dequeue();
         }
-       
         //Look at next
         public Claim PeekNextClaim()
         {

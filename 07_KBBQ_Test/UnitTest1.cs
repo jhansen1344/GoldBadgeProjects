@@ -19,7 +19,8 @@ namespace _07_KBBQ_Test
                 {"Patty", .75 },
                 {"Cheese", .30 }
             };
-            Assert.IsTrue(_repo.AddFood(itemName, ingredientandPrices));
+            Food newFood = _repo.AddFood(itemName, ingredientandPrices);
+            Assert.IsTrue(newFood.IngredientAndPrice.ContainsKey("Bun"));
         }
 
         [TestMethod]
@@ -50,7 +51,8 @@ namespace _07_KBBQ_Test
             _repo.AddFood(itemName, ingredientandPrices);
             List<Food> foodList = _repo.GetFoods();
             int ticketsTaken = 400;
-            Assert.IsTrue(_repo.AddEventFood(foodList[0], ticketsTaken));
+            EventFood testFood = _repo.AddEventFood(foodList[0], ticketsTaken);
+            Assert.AreEqual(400, testFood.TicketsTaken);
         }
 
         [TestMethod]
@@ -110,7 +112,7 @@ namespace _07_KBBQ_Test
             double lumpSum = 100;
             _repo.AddEventBooth(boothName, eventFoods, lumpSum);
             List<EventBooth> eventBooths = _repo.GetEventBooths();
-            Assert.AreEqual(700, eventBooths[0].TotalBoothCost);
+            Assert.AreEqual(1525, eventBooths[0].TotalBoothCost);
         }
 
         [TestMethod]
@@ -159,7 +161,7 @@ namespace _07_KBBQ_Test
             DateTime eventDate = DateTime.Now;
             _repo.AddEvent(eventName, eventBooths, eventDate);
             List<Event> pastEvents = _repo.GetPastEvents();
-            Assert.AreEqual(700, pastEvents[0].TotalEventCost);
+            Assert.AreEqual(3050, pastEvents[0].TotalEventCost);
         }
         [TestInitialize]
         public void Arrange()
@@ -191,7 +193,7 @@ namespace _07_KBBQ_Test
             List<EventBooth> eventBooths = _repo.GetEventBooths();
             string eventName = "2020AnnualBBQ";
             DateTime eventDate = DateTime.Now;
-           _repo.AddEvent(eventName, eventBooths, eventDate);
+            _repo.AddEvent(eventName, eventBooths, eventDate);
         }
 
         [TestMethod]
@@ -203,25 +205,46 @@ namespace _07_KBBQ_Test
         }
 
         [TestMethod]
-        public void TestRemoveBoothFromEvent_ShouldReturnTrue()
-        {
-            Assert.IsTrue(_repo.RemoveBoothFromEvent("2020AnnualBBQ", "Burger Booth"));
-            List<EventBooth> eventBooths = _repo.GetEventBooths();
-            Assert.AreEqual(0, eventBooths.Count);
-        }
-
-        [TestMethod]
-        public void TestRemoveEventFood_ShouldReturnTrue()
-        {
-            Assert.IsTrue(_repo.RemoveEventFoodFromBooth("2020AnnualBBQ", "Burger Booth", "Burger"));
-            Assert.AreEqual(1,_repo.GetEventBoothsByName("2020AnnualBBQ").Count);
-        }
-
-        [TestMethod]
-        public void RemoveFood_ShouldReturnTrue()
+        public void TestRemoveFood_ShouldReturnTrue()
         {
             Assert.IsTrue(_repo.RemoveFood("Burger"));
             Assert.AreEqual(1, _repo.GetFoods().Count);
+        }
+
+        [TestMethod]
+        public void TestGetTickets_ShouldReturnTickets()
+        {
+            int eventTickets = _repo.GetTotalTickets("2020AnnualBBQ");
+            Assert.AreEqual(550, eventTickets);
+        }
+
+        [TestMethod]
+        public void TestGetEventCost_ShouldReturnCost()
+        {
+            double eventCost = _repo.GetEventCost("2020AnnualBBQ");
+            Assert.AreEqual(925, eventCost);
+        }
+
+        [TestMethod]
+        public void TestGetFoodByName_ShouldReturnFood()
+        {
+            Food testFood = _repo.GetFoodByName("Burger");
+            Assert.IsTrue(testFood.IngredientAndPrice.ContainsKey("Patty"));
+        }
+
+        [TestMethod]
+        public void TestUpdateIngredientPrices_ShouldIncreaseBy1()
+        {
+            double oldPrice = _repo.GetFoodByName("Burger").ItemPrice;
+            
+            Dictionary<string, double> newIngredientAndPrices = new Dictionary<string, double>()
+            {
+                {"Bun", .45 },
+                {"Patty", 1.75 },
+                {"Cheese", .30 }
+            };
+            _repo.UpdateIngredientPrices("Burger", newIngredientAndPrices);
+            Assert.AreEqual(oldPrice + 1, _repo.GetFoodByName("Burger").ItemPrice);
         }
     }
 }

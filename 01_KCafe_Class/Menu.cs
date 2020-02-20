@@ -21,7 +21,8 @@ namespace _01_KCafe_Class
         public List<string> IngredientList { get; set; } = new List<string>();
         public decimal Price { get; set; }
 
-        public string Description {
+        public string Description
+        {
             get
             {
                 string description = "";
@@ -30,7 +31,7 @@ namespace _01_KCafe_Class
                     description += item + ", ";
                 }
                 return description;
-            }  
             }
+        }
     }
 }

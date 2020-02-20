@@ -49,13 +49,11 @@ namespace _07_KBBQ_Classes
             _pastEvents.Add(newEvent);
             return true;
         }
-
         //Return FoodList
         public List<Food> GetFoods()
         {
             return _foodList;
         }
-
         //Return Booths
         public List<Booth> GetBooths()
         {
@@ -76,7 +74,6 @@ namespace _07_KBBQ_Classes
         {
             return _pastEvents;
         }
-
         //Get EventByName
         public Event GetEventByName(string eventName)
         {
@@ -89,29 +86,16 @@ namespace _07_KBBQ_Classes
             }
             return null;
         }
-        //Get EventBoothsByEventName
-
-        public List<EventBooth> GetEventBoothsByName(string eventName)
+        public Food GetFoodByName(string foodName)
         {
-            Event getEvent = GetEventByName(eventName);
-            if (getEvent != null)
+            List<Food> allFoods = GetFoods();
+            foreach (var item in allFoods)
             {
-                return getEvent.EventBoothList;
-            }
-            return null;
-        }
-        //GetEventFoodsByEventName
-        public List<EventFood> GetEventFoodsByName(string eventName)
-        {
-            List<EventBooth> getBooth = GetEventBoothsByName(eventName);
-            List<EventFood> _getEventFood = new List<EventFood>();
-            if (getBooth != null)
-            {
-                foreach (var item in getBooth)
+                if (item.ItemName == foodName)
                 {
-                    _getEventFood.AddRange(item.BoothEventFood);
+                    return item;
                 }
-                return _getEventFood;
+
             }
             return null;
         }
@@ -125,7 +109,6 @@ namespace _07_KBBQ_Classes
             }
             return 0;
         }
-
         //GetEventCost
         public double GetEventCost(string eventName)
         {
@@ -136,54 +119,22 @@ namespace _07_KBBQ_Classes
             }
             return 0;
         }
+        public bool UpdateIngredientPrices(string foodName, Dictionary<string, double> updatedPrices)
+        {
+            Food foodToUpdate = GetFoodByName(foodName);
+            if (foodToUpdate != null)
+            {
+                foodToUpdate.IngredientAndPrice = updatedPrices;
+                return true;
+            }
+            return false;
+        }
         //Remove Event
         public bool RemoveEventByName(string eventName)
         {
             Event removedEvent = GetEventByName(eventName);
             _pastEvents.Remove(removedEvent);
             return true;
-        }
-        //Remove Booth from event
-        public bool RemoveBoothFromEvent(string eventName, string removeBooth)
-        {
-            List<EventBooth> eventBooths = GetEventBoothsByName(eventName);
-            if (eventBooths != null)
-            {
-                foreach (var item in eventBooths)
-                {
-                    if (item.BoothName == removeBooth)
-                    {
-                        eventBooths.Remove(item);
-                        return true;
-                    }
-                }
-                return false;
-            }
-            return false;
-        }
-        //Remove EventFood from booth
-        public bool RemoveEventFoodFromBooth(string eventName, string boothName, string removeFood)
-        {
-            List<EventBooth> eventBooths = GetEventBoothsByName(eventName);
-            if (eventBooths != null)
-            {
-                foreach (var item in eventBooths)
-                {
-                    if (item.BoothName == boothName)
-                    {
-                        foreach (var item2 in item.BoothEventFood)
-                        {
-                            if (item2.FoodAtEvent.ItemName == removeFood)
-                            {
-                                item.BoothEventFood.Remove(item2);
-                                return true;
-                            }
-                        }
-                    }
-                }
-                return false;
-            }
-            return false;
         }
         //Remove Food from list
         public bool RemoveFood(string foodName)
@@ -198,33 +149,5 @@ namespace _07_KBBQ_Classes
             }
             return false;
         }
-
-        public Food GetFoodByName(string foodName)
-        {
-            List<Food> allFoods = GetFoods();
-            foreach (var item in allFoods)
-            {
-                if(item.ItemName==foodName)
-                {
-                    return item;
-                }
-                
-            }
-            return null;
-        }
-        public bool UpdateIngredientPrices(string foodName, Dictionary<string, double> updatedPrices)
-        {
-            Food foodToUpdate = GetFoodByName(foodName);
-            if(foodToUpdate!=null)
-            {
-                foodToUpdate.IngredientAndPrice = updatedPrices;
-                return true;
-            }
-            return false;
-        }
-
-        //Update TicketsTaken at Event
-        //Update food at booths
-        //update eventName
     }
 }

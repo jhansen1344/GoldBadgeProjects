@@ -11,12 +11,11 @@ namespace _01_KCafe_Test
         [TestMethod]
         public void TestCreateMenuItem_ShouldReturnTrue()
         {
-          MenuRepository _menu = new MenuRepository();
-           string name = "royal with cheese";
-           int number = 1;
-          List<string> ingredientList = new List<string>() { "1/4 lb. burger with cheese", "fries", "coke" };
-          decimal price = 4.95m;
-
+            MenuRepository _menu = new MenuRepository();
+            string name = "royal with cheese";
+            int number = 1;
+            List<string> ingredientList = new List<string>() { "1/4 lb. burger with cheese", "fries", "coke" };
+            decimal price = 4.95m;
             Assert.IsTrue(_menu.CreateMenuItem(name, number, ingredientList, price));
         }
 
@@ -26,7 +25,7 @@ namespace _01_KCafe_Test
             int number = 1;
             List<string> ingredientList = new List<string>() { "1/4 lb. burger with cheese", "fries", "coke" };
             decimal price = 4.95m;
-            Menu newItem = new Menu(name,number,ingredientList,price);
+            Menu newItem = new Menu(name, number, ingredientList, price);
             Assert.AreEqual("1/4 lb. burger with cheese, fries, coke", newItem.Description);
 
         }
@@ -40,7 +39,7 @@ namespace _01_KCafe_Test
             List<string> ingredientList = new List<string>() { "1/4 lb. burger with cheese", "fries", "coke" };
             decimal price = 4.95m;
 
-           _menu.CreateMenuItem(name, number, ingredientList, price);
+            _menu.CreateMenuItem(name, number, ingredientList, price);
             List<Menu> returnedList = new List<Menu>();
             returnedList = _menu.GetMenuItems();
             Assert.AreEqual(1, returnedList.Count);
@@ -61,7 +60,6 @@ namespace _01_KCafe_Test
             List<Menu> returnedList = new List<Menu>();
             returnedList = _menu.GetMenuItems();
             Assert.AreEqual(0, returnedList.Count);
-
         }
     }
 }

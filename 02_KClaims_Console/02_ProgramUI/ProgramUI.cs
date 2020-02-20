@@ -45,12 +45,13 @@ namespace _02_KClaims_Console._02_ProgramUI
 
                 menuOptions[optionIndex - 1].RunMethod(_repo);
             }
-
         }
         private void SeedContent()
         {
             _repo.AddClaim(1, ClaimType.Car, "Car accident on 465", 400.00m, new DateTime(2018, 04, 25), new DateTime(2018, 04, 27));
-        }
+            _repo.AddClaim(2, ClaimType.Home, "House fire in kitchen", 4000.00m, new DateTime(2018, 04, 11), new DateTime(2018, 04, 12));
+            _repo.AddClaim(3, ClaimType.Theft, "Stolen Pancakes", 4.00m, new DateTime(2018, 04, 27), new DateTime(2018, 06, 01));
 
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace _02_KClaims_Console._02_ProgramUI
                 Console.WriteLine("Enter the claim ID");
                 userInput = Console.ReadLine();
             }
-            while (!int.TryParse(userInput, out claimID));
+            while (!int.TryParse(userInput, out claimID)|| claimID<0);
             
          //Enter type of claim enum
             ClaimType[] claimTypeCount = (ClaimType[])Enum.GetValues(typeof(ClaimType));
@@ -40,7 +40,7 @@ namespace _02_KClaims_Console._02_ProgramUI
                 Console.WriteLine("Enter the number corresponding to the claim type");
                 userInput = Console.ReadLine();
             }
-            while (!int.TryParse(userInput, out claimTypeInt) || claimTypeInt > claimTypeCount.Length);
+            while (!int.TryParse(userInput, out claimTypeInt) || claimTypeInt > claimTypeCount.Length || claimTypeInt<1);
             claimTypeInt -= 1;
             ClaimType typeOfClaim = (ClaimType)claimTypeInt;
             
@@ -54,7 +54,7 @@ namespace _02_KClaims_Console._02_ProgramUI
                 Console.WriteLine("Enter Claim Amount");
                 userInput = Console.ReadLine();
             }
-            while (!Decimal.TryParse(userInput, out claimAmount));
+            while (!Decimal.TryParse(userInput, out claimAmount) || claimAmount<0);
 
          //enter incident date date time
             Console.WriteLine("\n ClaimType");

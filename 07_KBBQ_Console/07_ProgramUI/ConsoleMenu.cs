@@ -33,7 +33,7 @@ namespace _07_KBBQ_Console._07_ProgramUI
                 Console.WriteLine("Enter the number of booths at the event");
                 userInput = Console.ReadLine();
             }
-            while (!int.TryParse(userInput, out numberBooths));
+            while (!int.TryParse(userInput, out numberBooths) ||numberBooths<1);
 
             List<Booth> booths = _eventRepo.GetBooths();
             int boothOption;
@@ -50,7 +50,7 @@ namespace _07_KBBQ_Console._07_ProgramUI
                     Console.WriteLine("Enter the number corresponding to the booth you want to add");
                     userInput = Console.ReadLine();
                 }
-                while (!int.TryParse(userInput, out boothOption) || boothOption > booths.Count);
+                while (!int.TryParse(userInput, out boothOption) || boothOption > booths.Count ||boothOption<1);
 
                 string boothName = booths[boothOption - 1].BoothName;
                 double lumpSum;
@@ -60,7 +60,7 @@ namespace _07_KBBQ_Console._07_ProgramUI
 
                     userInput = Console.ReadLine();
                 }
-                while (!Double.TryParse(userInput, out lumpSum));
+                while (!Double.TryParse(userInput, out lumpSum)||lumpSum<0);
 
                 int numberFood;
                 do
@@ -68,7 +68,7 @@ namespace _07_KBBQ_Console._07_ProgramUI
                     Console.WriteLine($"Enter the number of food items available at the {boothName}");
                     userInput = Console.ReadLine();
                 }
-                while (!int.TryParse(userInput, out numberFood));
+                while (!int.TryParse(userInput, out numberFood)||numberFood<1);
                 List<Food> foodOptions = _eventRepo.GetFoods();
                 List<EventFood> eventFoods = new List<EventFood>();
                 Food foodAtEvent = new Food();
@@ -87,7 +87,7 @@ namespace _07_KBBQ_Console._07_ProgramUI
                         Console.WriteLine($"Enter the number corresponding to the food item to add to the {boothName}");
                         userInput = Console.ReadLine();
                     }
-                    while (!int.TryParse(userInput, out foodChoice) || foodChoice > foodOptions.Count);
+                    while (!int.TryParse(userInput, out foodChoice) || foodChoice > foodOptions.Count||foodChoice<1);
                     foodAtEvent = foodOptions[foodChoice - 1];
                     int numberTicket;
                     do
@@ -95,7 +95,7 @@ namespace _07_KBBQ_Console._07_ProgramUI
                         Console.WriteLine($"Enter the number of tickets taken for {foodAtEvent.ItemName}");
                         userInput = Console.ReadLine();
                     }
-                    while (!int.TryParse(userInput, out numberTicket));
+                    while (!int.TryParse(userInput, out numberTicket) || numberTicket<0);
                     EventFood eventFood = new EventFood(foodAtEvent, numberTicket);
                     eventFoods.Add(eventFood);
 
@@ -186,7 +186,7 @@ namespace _07_KBBQ_Console._07_ProgramUI
                 Console.WriteLine($"Enter the number of ingredients for {foodName}.");
                 userInput = Console.ReadLine();
             }
-            while (!Int32.TryParse(userInput, out numIngredients));
+            while (!Int32.TryParse(userInput, out numIngredients)||numIngredients<1);
             string ingredientName;
             double ingredientPrice;
             for (int i = 0; i < numIngredients; i++)
@@ -198,10 +198,16 @@ namespace _07_KBBQ_Console._07_ProgramUI
                     Console.WriteLine($"Enter the price of {ingredientName}");
                     userInput = Console.ReadLine();
                 }
-                while (!Double.TryParse(userInput, out ingredientPrice));
+                while (!Double.TryParse(userInput, out ingredientPrice)||ingredientPrice<0);
+                if (!foodIngredients.ContainsKey(ingredientName))
+                { 
                 foodIngredients.Add(ingredientName, ingredientPrice);
+                }
             }
-
+            _eventRepo.AddFood(foodName, foodIngredients);
+            Console.WriteLine("Food Added \n" +
+                "Press any key to return to the main menu.");
+            Console.ReadKey();
         }
     }
 
@@ -238,7 +244,7 @@ namespace _07_KBBQ_Console._07_ProgramUI
                 Console.WriteLine($"Enter the number corresponding to the food item to update");
                 userInput = Console.ReadLine();
             }
-            while (!int.TryParse(userInput, out foodChoice) || foodChoice > allFoods.Count);
+            while (!int.TryParse(userInput, out foodChoice) || foodChoice > allFoods.Count||foodChoice<1);
 
             Food foodToUpdate = allFoods[foodChoice - 1];
             Console.Clear();
@@ -252,7 +258,7 @@ namespace _07_KBBQ_Console._07_ProgramUI
                     Console.WriteLine($"Enter the new price for {item.Key}");
                     userInput = Console.ReadLine();
                 }
-                while (!Double.TryParse(userInput, out newPrice));
+                while (!Double.TryParse(userInput, out newPrice)|| newPrice<0);
                 newProductPrice.Add(item.Key, newPrice);
             }
             _eventRepo.UpdateIngredientPrices(foodToUpdate.ItemName, newProductPrice);

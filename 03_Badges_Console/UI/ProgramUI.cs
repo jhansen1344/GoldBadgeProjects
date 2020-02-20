@@ -13,6 +13,7 @@ namespace _03_Badges_Console.UI
         private readonly BadgeRepository _repo = new BadgeRepository();
         public void Run()
         {
+            SeedContent();
             RunMenu();
         }
 
@@ -47,6 +48,12 @@ namespace _03_Badges_Console.UI
 
                 menuOptions[optionIndex - 1].RunMethod(_repo);
             }
+        }
+        private void SeedContent()
+        {
+            _repo.AddBadge(12345, new List<string>() { "A5" });
+            _repo.AddBadge(22345, new List<string>() { "A1", "A4", "B1", "B2" });
+            _repo.AddBadge(32345, new List<string>() { "A4", "A5" });
         }
     }
 }

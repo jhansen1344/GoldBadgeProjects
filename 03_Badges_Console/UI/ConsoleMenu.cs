@@ -48,7 +48,6 @@ namespace _03_Badges_Console.UI
                     "Press any key to return to the Main Menu.");
                 Console.ReadKey();
             }
-
         }
     }
 
@@ -66,7 +65,7 @@ namespace _03_Badges_Console.UI
                 Console.WriteLine("Enter the badge number to update");
                 userInput = Console.ReadLine();
             }
-            while (!int.TryParse(userInput, out badgeNumber));
+            while (!int.TryParse(userInput, out badgeNumber)||badgeNumber<0);
             doorList = _repo.GetDoorAccess(badgeNumber);
             if (doorList == null)
             {
@@ -106,7 +105,7 @@ namespace _03_Badges_Console.UI
                 Console.WriteLine("Enter the badge number to remove all door access");
                 userInput = Console.ReadLine();
             }
-            while (!int.TryParse(userInput, out badgeNumber));
+            while (!int.TryParse(userInput, out badgeNumber)||badgeNumber<0);
 
             List<string> doorList = _repo.GetDoorAccess(badgeNumber);
             if (doorList == null)

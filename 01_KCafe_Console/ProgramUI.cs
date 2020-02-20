@@ -14,6 +14,7 @@ namespace _01_KCafeConsole
 
         public void Run()
         {
+            SeedContent();
             RunMenu();
         }
 
@@ -60,15 +61,15 @@ namespace _01_KCafeConsole
             {
                 foreach (var item in menuItems)
                 {
-                    Console.WriteLine($"Combo Number:{item.Number}\n" +
+                    Console.WriteLine($"\n Combo Number:{item.Number}\n" +
                         $"Combo Name: {item.Name}\n" +
                         $"Combo Price: {item.Price}\n" +
                         $"Combo Description: {item.Description}\n" +
                         $"Combo Ingredient List:\n");
-                        foreach (var ing in item.IngredientList)
-                        {
-                            Console.WriteLine(ing);
-                        }
+                    foreach (var ing in item.IngredientList)
+                    {
+                        Console.WriteLine(ing);
+                    }
                 }
             }
             else
@@ -78,13 +79,12 @@ namespace _01_KCafeConsole
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
-
         private void AddComboToMenu()
         {
             Console.Clear();
             //Get number of combo
             int number;
-            bool canConvert=false;
+            bool canConvert = false;
             do
             {
                 Console.WriteLine("Please enter a number for the combo you'd like to add");
@@ -128,11 +128,11 @@ namespace _01_KCafeConsole
                         $"Combo Name: {name}\n" +
                         $"Combo Price: {price}\n" +
                         $"Combo Ingredient List:\n");
-                        foreach (var item in ingredientList)
-                        {
-                             Console.WriteLine(item);
-                         }
-                        Console.WriteLine($"\n\n Please enter 'y' + enter to confirm or 'n' + enter to exit");
+            foreach (var item in ingredientList)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine($"\n\n Please enter 'y' + enter to confirm or 'n' + enter to exit");
             string confirmAdd = Console.ReadLine();
             if (confirmAdd.ToLower() == "y")
             {
@@ -142,9 +142,7 @@ namespace _01_KCafeConsole
             };
             Console.WriteLine("Press any key to return to the main menu...");
             Console.ReadKey();
-
         }
-
         private void RemoveComboFromMenu()
         {
             Console.Clear();
@@ -181,6 +179,12 @@ namespace _01_KCafeConsole
             Console.WriteLine("Press any key to return to the main menu...");
             Console.ReadKey();
         }
-}
+        private void SeedContent()
+        {
+            _menu.CreateMenuItem("Royal with Cheese Combo", 1, new List<string>() { "1/4lb with cheese", "fries", "coke" },4.95m);
+            _menu.CreateMenuItem("Grilled Chicken", 2, new List<string>() { "Grilled Chicken", "Salad", "Water" }, 3.85m);
 
+        }
+        
+    }
 }

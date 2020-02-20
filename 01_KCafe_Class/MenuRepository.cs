@@ -50,7 +50,5 @@ namespace _01_KCafe_Class
             }
             return false;
         }
-
-
     }
 }
