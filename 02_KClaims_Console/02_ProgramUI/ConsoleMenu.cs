@@ -83,7 +83,6 @@ namespace _02_KClaims_Console._02_ProgramUI
             Console.ReadKey();
         }
     }
-
     class HandleNextClaim : IMenu
     {
         public string Description => "Handle Next Claim";

@@ -236,7 +236,7 @@ namespace _07_KBBQ_Test
         public void TestUpdateIngredientPrices_ShouldIncreaseBy1()
         {
             double oldPrice = _repo.GetFoodByName("Burger").ItemPrice;
-            
+
             Dictionary<string, double> newIngredientAndPrices = new Dictionary<string, double>()
             {
                 {"Bun", .45 },

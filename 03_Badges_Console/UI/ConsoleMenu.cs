@@ -70,7 +70,7 @@ namespace _03_Badges_Console.UI
                 Console.WriteLine("Enter the badge number to update:");
                 userInput = Console.ReadLine();
             }
-            while (!int.TryParse(userInput, out badgeNumber)||badgeNumber<0);
+            while (!int.TryParse(userInput, out badgeNumber) || badgeNumber < 0);
             doorList = _repo.GetDoorAccess(badgeNumber);
             if (doorList == null)
             {
@@ -92,7 +92,7 @@ namespace _03_Badges_Console.UI
                     $"Enter a door to add/remove access.");
                     userInput = Console.ReadLine();
                     List<string> updatedList = _repo.UpdateDoorAccess(badgeNumber, userInput);
-                    string updatedDoor = string.Join<string>(",", updatedList); 
+                    string updatedDoor = string.Join<string>(",", updatedList);
                     Console.WriteLine($"Badge Number: {badgeNumber} can access the following doors: {updatedDoor}\n");
                     doorString = updatedDoor;
                     do
@@ -100,18 +100,18 @@ namespace _03_Badges_Console.UI
                         Console.WriteLine("Are there additional doors to update for this badge?\n" +
                             "Enter 'y' to add additional doors or 'n' to return to the main menu.");
                         yesNoInput = Console.ReadLine();
-                        switch(yesNoInput.ToLower())
-                            {
-                                case "y":
+                        switch (yesNoInput.ToLower())
+                        {
+                            case "y":
                                 isYesNo = true;
                                 break;
-                                case "n":
+                            case "n":
                                 isYesNo = true;
                                 continueToRun = false;
                                 break;
-                                default:
+                            default:
                                 break;
-                            }
+                        }
                     }
                     while (!isYesNo);
                 }
@@ -122,7 +122,6 @@ namespace _03_Badges_Console.UI
             Console.ReadKey();
         }
     }
-
     class RemoveAllDoorAccess : IMenu
     {
         public string Description => "Remove All Door Access for Badge";
@@ -136,7 +135,7 @@ namespace _03_Badges_Console.UI
                 Console.WriteLine("Enter the badge number to remove all door access");
                 userInput = Console.ReadLine();
             }
-            while (!int.TryParse(userInput, out badgeNumber)||badgeNumber<0);
+            while (!int.TryParse(userInput, out badgeNumber) || badgeNumber < 0);
 
             List<string> doorList = _repo.GetDoorAccess(badgeNumber);
             if (doorList == null)
@@ -146,7 +145,7 @@ namespace _03_Badges_Console.UI
             else
             {
                 string doorString = string.Join<string>(",", doorList);
-                
+
                 Console.WriteLine($"WARNING: ACCESS WILL BE REMOVED FOR BADGE NUMBER: {badgeNumber} ON THE ALL OF THE DOORS LISTED: {doorString}\n" +
                     $"Press 'y' to confirm");
                 userInput = Console.ReadLine();
@@ -176,7 +175,7 @@ namespace _03_Badges_Console.UI
             Console.WriteLine("{0,-10} {1}", "Badge #", "Doors Access");
             foreach (var item in allBadges)
             {
-                Console.WriteLine($"{item.Key,-10} { string.Join<string>(",",item.Value)}");
+                Console.WriteLine($"{item.Key,-10} { string.Join<string>(",", item.Value)}");
             }
             Console.WriteLine("Press any key to return to the Main Menu.");
             Console.ReadKey();

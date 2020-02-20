@@ -8,10 +8,10 @@ namespace _03_KBadges_Class
 {
     public class BadgeRepository
     {
-        private Dictionary<int, List<string>> _badgeDictionary = new Dictionary<int,List<string>>();
+        private Dictionary<int, List<string>> _badgeDictionary = new Dictionary<int, List<string>>();
         public bool AddBadge(int id, List<string> doorList)
         {
-            if(!_badgeDictionary.ContainsKey(id))
+            if (!_badgeDictionary.ContainsKey(id))
             {
                 Badge newBadge = new Badge(id, doorList);
                 _badgeDictionary.Add(newBadge.ID, newBadge.DoorList);
@@ -19,8 +19,7 @@ namespace _03_KBadges_Class
             }
             return false;
         }
-
-        public Dictionary<int,List<string>> GetAllBadges()
+        public Dictionary<int, List<string>> GetAllBadges()
         {
             return _badgeDictionary;
         }
@@ -28,7 +27,7 @@ namespace _03_KBadges_Class
         //Return list doors access
         public List<string> GetDoorAccess(int id)
         {
-            if(_badgeDictionary.ContainsKey(id))
+            if (_badgeDictionary.ContainsKey(id))
             {
                 List<string> currentDoors = new List<string>();
                 currentDoors = _badgeDictionary[id];
@@ -36,12 +35,11 @@ namespace _03_KBadges_Class
             }
             return null;
         }
-
         //Update Door Access
         public List<string> UpdateDoorAccess(int id, string door)
         {
             List<string> currentDoors = GetDoorAccess(id);
-            if(currentDoors!=null)
+            if (currentDoors != null)
             {
                 foreach (var item in currentDoors)
                 {
@@ -55,7 +53,6 @@ namespace _03_KBadges_Class
             }
             return currentDoors;
         }
-        
         //Remove All Door Access
         public bool RemoveAllDoorAccess(int id)
         {

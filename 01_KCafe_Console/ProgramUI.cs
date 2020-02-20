@@ -196,10 +196,10 @@ namespace _01_KCafeConsole
         }
         private void SeedContent()
         {
-            _menu.CreateMenuItem("Royal with Cheese Combo", 1, new List<string>() { "1/4lb with cheese", "fries", "coke" },4.95m);
+            _menu.CreateMenuItem("Royal with Cheese Combo", 1, new List<string>() { "1/4lb with cheese", "fries", "coke" }, 4.95m);
             _menu.CreateMenuItem("Grilled Chicken", 2, new List<string>() { "Grilled Chicken", "Salad", "Water" }, 3.85m);
 
         }
-        
+
     }
 }

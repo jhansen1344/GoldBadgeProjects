@@ -16,7 +16,6 @@ namespace _03_Badges_Console.UI
             SeedContent();
             RunMenu();
         }
-
         private void RunMenu()
         { 
             bool continueToRun = true;

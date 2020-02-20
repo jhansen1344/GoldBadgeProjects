@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace _03_Badges_Test
 {
-    
+
     [TestClass]
     public class RepositoryTest
     {
@@ -27,7 +27,7 @@ namespace _03_Badges_Test
             List<string> doorList = new List<string> { "A5", "A7" };
             _repo.AddBadge(id, doorList);
             id = 22345;
-            doorList = new List<string>{"A1", "B4"};
+            doorList = new List<string> { "A1", "B4" };
             _repo.AddBadge(id, doorList);
         }
 
@@ -72,7 +72,7 @@ namespace _03_Badges_Test
             Assert.IsTrue(_repo.RemoveAllDoorAccess(12345));
             List<string> doorAccess = new List<string>();
             doorAccess = _repo.GetDoorAccess(12345);
-            Assert.IsTrue(doorAccess.Count==0);
+            Assert.IsTrue(doorAccess.Count == 0);
         }
     }
 }

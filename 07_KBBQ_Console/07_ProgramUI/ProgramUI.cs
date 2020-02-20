@@ -30,8 +30,8 @@ namespace _07_KBBQ_Console._07_ProgramUI
                 new ViewFoodPrices(),
                 new UpdateIngredientPrices(),
                 new Exit(),
-                
-                
+
+
             };
             while (continueToRun)
             {
@@ -69,7 +69,7 @@ namespace _07_KBBQ_Console._07_ProgramUI
             ingredientAndPrices.Add("Veggie Pattie", 1.05);
             _eventRepo.AddFood(itemName, new Dictionary<string, double>() { { "Bun", .45 }, { "Veggie Pattie", 1.05 } });
             itemName = "Hot Dog";
-            _eventRepo.AddFood(itemName, new Dictionary<string, double>() { { "Bun", .35 },{ "Hot Dog", .50 } });
+            _eventRepo.AddFood(itemName, new Dictionary<string, double>() { { "Bun", .35 }, { "Hot Dog", .50 } });
             itemName = "Popcorn";
             _eventRepo.AddFood(itemName, new Dictionary<string, double>() { { "PopCorn", .25 }, { "Butter", .01 } });
             itemName = "Ice Cream";

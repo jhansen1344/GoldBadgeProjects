@@ -30,7 +30,6 @@ namespace _07_KBBQ_Classes
             }
         }
     }
-
     public class EventFood
     {
         public EventFood() { }
@@ -81,7 +80,6 @@ namespace _07_KBBQ_Classes
                 }
                 return _totalTickets;
             }
-                
         }
         public double TotalBoothCost {
             get 
@@ -107,7 +105,6 @@ namespace _07_KBBQ_Classes
             EventDate = eventDate;
         }
         public string EventName { get; set; }
-
         public DateTime EventDate { get; set; }
         public List<EventBooth> EventBoothList { get; set; } = new List<EventBooth>();
         public double TotalEventCost
@@ -133,6 +130,5 @@ namespace _07_KBBQ_Classes
                 return _totalTickets;
             }
         }
-
     }
 }

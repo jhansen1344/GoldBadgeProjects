@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace _02_KClaims_Class
 {
-    
-    public enum ClaimType { Car,Home,Theft}
+
+    public enum ClaimType { Car, Home, Theft }
     public class Claim
     {
         public Claim() { }
-        public Claim(int id, ClaimType typeOfClaim, string description, decimal claimAmount, DateTime incidentDate, DateTime claimDate) 
+        public Claim(int id, ClaimType typeOfClaim, string description, decimal claimAmount, DateTime incidentDate, DateTime claimDate)
         {
             ID = id;
             TypeOfClaim = typeOfClaim;
@@ -26,12 +26,13 @@ namespace _02_KClaims_Class
         public decimal ClaimAmount { get; set; }
         public DateTime IncidentDate { get; set; } = new DateTime();
         public DateTime ClaimDate { get; set; } = new DateTime();
-        public bool IsValid {
+        public bool IsValid
+        {
             get
             {
                 TimeSpan timeSpan = ClaimDate - IncidentDate;
                 return (Convert.ToInt32(timeSpan.TotalDays) <= 30);
-            }  
-         }
+            }
+        }
     }
 }
